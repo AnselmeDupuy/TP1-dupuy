@@ -1,17 +1,20 @@
 
 from datetime import datetime
+import pytest
 
 from parking import check_duration_free_parking, calculate_parking_fee, price_cap, impound, check_duration, check_price_at_time
 
 def test_check_duration_free_parking():
-    assert check_duration_free_parking(25.5, False) == False
-    assert check_duration_free_parking(30, False) == False
-    assert check_duration_free_parking(31.0, False) == True
-    assert check_duration_free_parking("a", False) == Exception("Invalid duration: must be a number")
-    assert check_duration_free_parking(-5, False) == Exception("Invalid duration: must be a positive number")
-    assert check_duration_free_parking(60, True) == True
-    assert check_duration_free_parking(90, True) == False
-    assert check_duration_free_parking(120, True) == False
+    assert check_duration_free_parking(25.5, False)
+    assert check_duration_free_parking(30, False)
+    assert not check_duration_free_parking(31.0, False)
+    with pytest.raises(TypeError):
+        check_duration_free_parking("a", False)
+    with pytest.raises(ValueError):
+        check_duration_free_parking(-5, False)
+    assert check_duration_free_parking(60, True)
+    assert not check_duration_free_parking(90, True)
+    assert not check_duration_free_parking(120, True)
 
 def test_calculate_parking_fee():
     assert calculate_parking_fee(25.5, False, False) == 0
