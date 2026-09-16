@@ -1,9 +1,9 @@
 
 from datetime import datetime
 
-from parking import check_duration_free_parking
+from parking import check_duration_free_parking, calculate_parking_fee, price_cap, impound, check_duration, check_price_at_time
 
-def test_check_duration_free_parking(duration_in_minutes : float, is_electric: bool) -> bool:
+def test_check_duration_free_parking() -> None:
     assert check_duration_free_parking(25.5, False) == False
     assert check_duration_free_parking(30, False) == False
     assert check_duration_free_parking(31.0, False) == True
@@ -13,7 +13,7 @@ def test_check_duration_free_parking(duration_in_minutes : float, is_electric: b
     assert check_duration_free_parking(90, True) == False
     assert check_duration_free_parking(120, True) == False
 
-def test_calculate_parking_fee(duration_in_minutes : float, subscribed: bool, is_electric: bool) -> float:
+def test_calculate_parking_fee() -> None:
     assert calculate_parking_fee(25.5, False, False) == 0
     assert calculate_parking_fee(30, False, False) == 0
     assert calculate_parking_fee(31.0, False, False) == 1.5
@@ -33,7 +33,7 @@ def test_calculate_parking_fee(duration_in_minutes : float, subscribed: bool, is
     assert calculate_parking_fee(120, True, True) == 1.5 * 0.6
     assert calculate_parking_fee(121, True, True) == 3.0 * 0.6
 
-def test_price_cap(price: float, duration_in_minutes: int, subscribed: bool) -> bool:
+def test_price_cap() -> None:
     assert price_cap(18, 30, False) == True
     assert price_cap(19, 1300, False) == False
     assert price_cap(5, 30, False) == True
@@ -47,7 +47,7 @@ def test_price_cap(price: float, duration_in_minutes: int, subscribed: bool) -> 
     assert price_cap(18, -30, False) == Exception("Invalid duration: must be a positive number")
     assert price_cap(18, "a", False) == Exception("Invalid duration: must be a number")
 
-def test_impound(duration_in_minutes: int ) -> bool:
+def test_impound() -> None:
     assert impound(30) == False
     assert impound(1500) == False
     assert impound(4320) == True
@@ -55,7 +55,7 @@ def test_impound(duration_in_minutes: int ) -> bool:
     assert impound(-5) == Exception("Invalid duration: must be a positive number")
     assert impound("a") == Exception("Invalid duration: must be a number")
 
-def test_check_duration(time_arrive : datetime, time_departure : datetime) -> int :
+def test_check_duration() -> None:
     assert check_duration(datetime(2026, 9, 2, 10, 0, 0), datetime(2026, 9, 2, 10, 30, 0)) == 30
     assert check_duration(datetime(2026, 9, 2, 10, 0, 0), datetime(2026, 9, 2, 11, 0, 0)) == 60
     assert check_duration(datetime(2026, 9, 2, 10, 0, 0), datetime(2026, 9, 2, 12, 30, 0)) == 150
@@ -64,7 +64,7 @@ def test_check_duration(time_arrive : datetime, time_departure : datetime) -> in
     assert check_duration(datetime(2026, 9, 2, 10, 0, 0), datetime(2026, 9, 1, 10, 0, 0)) == Exception("Invalid duration: departure time must be after arrival time")
     assert check_duration(datetime(2026, 9, 2, 10, 0, 0), datetime(2026, 9, 2, 10, 0, 0)) == Exception("Invalid duration: departure time must be after arrival time")
 
-def test_check_price_at_time(time_arrive: datetime) -> float:
+def test_check_price_at_time() -> None:
     
     assert check_price_at_time(datetime(2026, 9, 2, 10, 0, 0)) == 0
     assert check_price_at_time(datetime(2026, 9, 2, 10, 0, 0)) == 0
