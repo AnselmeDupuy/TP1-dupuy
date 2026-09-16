@@ -1,0 +1,11 @@
+inventaire.py
+    F 122:0 rapport - D (22)
+    F 94:0 par_cat - B (10)
+    F 37:0 mouv - B (9)
+    F 74:0 classer - A (5)
+    F 19:0 val - A (3)
+    F 29:0 alerte - A (3)
+    F 62:0 cout - A (3)
+    F 87:0 rot - A (2)
+    F 175:0 maj_prix - A (1)
+    F 185:0 export_json - A (1)
