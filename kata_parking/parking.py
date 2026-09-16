@@ -15,5 +15,5 @@ def impound(duration_in_minutes: int) -> bool:
 def check_duration(time_arrive: datetime, time_departure: datetime) -> int:
     return None
 
-def check_price_at_time(price: float, duration_in_minutes: int, subscribed: bool) -> bool:
+def check_price_at_time(duration_in_minutes: int, subscribed: bool) -> bool:
     return None
