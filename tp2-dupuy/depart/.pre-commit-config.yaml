@@ -21,14 +21,14 @@ repos:
     hooks:
       - id: pytest
         name: tests unitaires
-        entry: pytest -q tp2-dupuy/depart
+        entry: pytest -q .
         language: system
         pass_filenames: false
         always_run: true
 
       - id: complexite
         name: barriere de complexite
-        entry: xenon --max-absolute B --max-modules B --max-average C tp1-Dupuy/tp2-dupuy/depart/facturation/
+        entry: xenon --max-absolute B --max-modules B --max-average C .
         language: system
         pass_filenames: false
         always_run: true
